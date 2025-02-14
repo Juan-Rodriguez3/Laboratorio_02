@@ -66,10 +66,24 @@ MAIN:
 	CP		R17, R16
 	BREQ	MAIN			//No hay cambios, releer
 	MOV		R17, R16		//Actualizar el estado de los botones.
-
+	SBRS	R16, 0			//Revisar si el bit 0 esta en Set
+	CALL	increment
+	SBRS	R16,	1		//Revisar si el bit 1 esta en Set	
+	CALL	decrement
+	OUT		PORTD, R18		//Actualizar salida
+	RJMP	MAIN
 
 
 //Subrutinas
+
+increment:
+	CPI		R18, 0x0F		//Limite del contador
+	BREQ	REI				//Reiniciar si hay overflow
+	INC		R18
+	RET
+REI:
+	LDI		R18, 0x00		//Reiniciar contador
+	RET
 
 
 DELAY:
