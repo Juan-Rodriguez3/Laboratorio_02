@@ -3,14 +3,13 @@
 ; IE2025: Programacion de Microcontroladores
 ;
 ; Author: Juan Rodriguez
-; Proyecto: Prelab II
+; Proyecto: Lab II
 ; Hardware: ATmega328P
 ; Creado: 14/02/2025
 ; Modificado: 14/02/2025
 ; Descripcion: Este programa consiste en un contador binario de 4 bits que incrementa cada 100 ms. 
 ;*********************
 .include "M328PDEF.inc"
-.def COUNTER = R20
 .cseg
 .org 0x0000
 
@@ -23,9 +22,9 @@
 SETUP:
 	// Configurar Prescaler 
 	LDI		R16, (1 << CLKPCE)
-	STS		CLKPR, R16 // Habilitar cambio de PRESCALER
+	STS		CLKPR, R16		// Habilitar cambio de PRESCALER
 	LDI		R16, 0b00000100
-	STS		CLKPR, R16 // Configurar Prescaler en 1MHz
+	STS		CLKPR, R16		// Configurar Prescaler en 1MHz
 	
 
 	  //Configurar los pines como entradas y salidas
@@ -34,25 +33,55 @@ SETUP:
 	LDI		R16, 0x00
 	OUT		DDRC, R16
 	LDI		R16, 0xFF
-	OUT		PORTC, R16		;Pull-up
+	OUT		PORTC, R16		//Pull-up
 
 	//Puerto B como salida
 	LDI		R16, 0xFF
-	OUT		DDRB, R16 // Puerto B como salida
+	OUT		DDRB, R16		// Puerto B como salida
 	LDI		R16, 0x00
-	OUT		PORTB, R16 //El puerto B conduce cero logico.
+	OUT		PORTB, R16		//El puerto B conduce cero logico.
 
 	//Puerto D como salida
 	LDI		R16, 0xFF
-	OUT		DDRD, R16 // Puerto D como salida
+	OUT		DDRD, R16		// Puerto D como salida
 	LDI		R16, 0x00
-	OUT		PORTD, R16 //El puerto D conduce cero logico.
+	OUT		PORTD, R16		//El puerto D conduce cero logico.
 
 	// Deshabilitar serial 
 	LDI		R16, 0x00
 	STS		UCSR0B, R16
-	LDI		COUNTER, 0x00
-	LDI		R17, 0x00
 
+	//Estado de los botones
+	LDI		R17, 0xFF
+
+	//Salidas
+	LDI		R18, 0x00		//Salida de la panta de 7 segmentos
+
+//MainLoop
 MAIN:
+	IN		R16, PINC		//Leer el pinc
+	CP		R17, R16		//Comparar el estado de los botones.
+	BREQ	MAIN			//No hay cambios, releer
+	IN		R16, PINC		//confirmar si hay botonazo
+	CP		R17, R16
+	BREQ	MAIN			//No hay cambios, releer
+	MOV		R17, R16		//Actualizar el estado de los botones.
+
+
+
+//Subrutinas
+
+
+DELAY:
+	LDI		R20, 0
+SUBDELAY1:
+	INC		R20
+	CPI		R20,0
+	BRNE	SUBDELAY1
+	LDI		R20, 0
+SUBDELAY2:
+	INC		R20
+	CPI		R20,0
+	BRNE	SUBDELAY2
+	RET
 	
