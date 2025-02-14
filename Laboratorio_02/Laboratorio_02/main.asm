@@ -55,7 +55,20 @@ SETUP:
 	LDI		R17, 0xFF
 
 	//Salidas
-	LDI		R18, 0x00		//Salida de la panta de 7 segmentos
+	LDI		R18, 0x00		//Contador de 4 bit
+	LDI		R19, 0x00		//Salida del display
+	//pin0=e
+	//pin1=d
+	//pin2=f
+	//pin3=g
+	//pin4=a
+	//pin5=b
+	//pin6=c
+	//pin7= punto
+
+
+
+
 
 //MainLoop
 MAIN:
@@ -70,12 +83,14 @@ MAIN:
 	CALL	increment
 	SBRS	R16,	1		//Revisar si el bit 1 esta en Set	
 	CALL	decrement
-	OUT		PORTD, R18		//Actualizar salida
+	CALL	DISPLAY
+	OUT		PORTD, R19		//Actualizar salida
 	RJMP	MAIN
 
 
 //Subrutinas
 
+//Incrementar el contador
 increment:
 	CPI		R18, 0x0F		//Limite del contador
 	BREQ	REI				//Reiniciar si hay overflow
@@ -85,6 +100,23 @@ REI:
 	LDI		R18, 0x00		//Reiniciar contador
 	RET
 
+//Decrementar el contador
+decrement:
+	CPI		R18, 0x00		//Limite del contador
+	BREQ	RED				//Reiniciar si hay overflow
+	INC		R18
+	RET
+RED:
+	LDI		R18, 0x0F		//Reiniciar contador
+	RET
+
+DISPLAY:
+	CPI		R18, 0x00
+	BREQ	ZERO
+ZERO:
+	//Todos los pines en HIGH menos el pin3 y el pin7
+	LDI		R19, 0b01110111	//Asignarle el valor para formar el zero	
+	RET
 
 DELAY:
 	LDI		R20, 0
