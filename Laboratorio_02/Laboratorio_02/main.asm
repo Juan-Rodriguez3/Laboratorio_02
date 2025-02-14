@@ -104,7 +104,7 @@ REI:
 decrement:
 	CPI		R18, 0x00		//Limite del contador
 	BREQ	RED				//Reiniciar si hay overflow
-	INC		R18
+	DEC		R18
 	RET
 RED:
 	LDI		R18, 0x0F		//Reiniciar contador
