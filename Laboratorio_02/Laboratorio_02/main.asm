@@ -61,8 +61,8 @@ SETUP:
 	//pin1=d
 	//pin2=f
 	//pin3=g
-	//pin4=a
-	//pin5=b
+	//pin4=b
+	//pin5=a
 	//pin6=c
 	//pin7= punto
 	
@@ -190,8 +190,7 @@ C:
 	LDI		R19, 0b00100111
 	RET		
 D:
-	LDI		R19, 0b01101011
-
+	LDI		R19, 0b01011011
 	RET		
 E:
 	LDI		R19, 0b00101111

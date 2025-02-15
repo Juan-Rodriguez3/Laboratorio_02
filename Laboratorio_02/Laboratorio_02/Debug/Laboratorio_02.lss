@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm Fri Feb 14 20:34:21 2025
+AVRASM ver. 2.2.8  C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm Fri Feb 14 20:49:42 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm(12): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\M328PDEF.inc'
@@ -1096,7 +1096,7 @@ C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\L
                                  	//pin5=b
                                  	//pin6=c
                                  	//pin7= punto
-                                 
+                                 	
                                  
                                  //MainLoop
                                  MAIN:
@@ -1214,15 +1214,14 @@ C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\L
                                  
 000071 9508                      	RET		
                                  B:
-000072 ef3f                      	LDI		R19, 0b11111111
+000072 e43f                      	LDI		R19, 0b01001111
                                  
 000073 9508                      	RET		
                                  C:
 000074 e237                      	LDI		R19, 0b00100111
 000075 9508                      	RET		
                                  D:
-000076 ef37                      	LDI		R19, 0b11110111
-                                 
+000076 e53b                      	LDI		R19, 0b01011011
 000077 9508                      	RET		
                                  E:
 000078 e23f                      	LDI		R19, 0b00101111
