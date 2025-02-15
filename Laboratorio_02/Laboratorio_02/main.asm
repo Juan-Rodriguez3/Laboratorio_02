@@ -108,9 +108,10 @@ RED:
 	LDI		R18, 0x0F		//Reiniciar contador
 	RET
 
+//Logica para saber que salida debe tener el display
 DISPLAY:
-	CPI		R18, 0x00
-	BREQ	ZERO
+	CPI		R18, 0x00		//Comparamos con el numero
+	BREQ	ZERO			//Si es igual se ejecutara la funcion del numero
 	CPI		R18, 0x01
 	BREQ	ONE
 	CPI		R18, 0x02
@@ -140,8 +141,8 @@ DISPLAY:
 	CPI		R18, 0x0E
 	BREQ	E
 	CPI		R18, 0x0F
-	BREQ	F
-	RET						//Temporal hasta completar el codigo
+	BREQ	F	
+//Todos los numeros tienen su valor correspondiente a las conexiones electricas			
 ZERO:
 	//Todos los pines en HIGH menos el pin3 y el pin7
 	LDI		R19, 0b01110111	//Asignarle el valor para formar el zero	

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm Fri Feb 14 20:49:42 2025
+AVRASM ver. 2.2.8  C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm Fri Feb 14 20:53:05 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm(12): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\M328PDEF.inc'
@@ -1092,8 +1092,8 @@ C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\L
                                  	//pin1=d
                                  	//pin2=f
                                  	//pin3=g
-                                 	//pin4=a
-                                 	//pin5=b
+                                 	//pin4=b
+                                 	//pin5=a
                                  	//pin6=c
                                  	//pin7= punto
                                  	
@@ -1103,7 +1103,7 @@ C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\L
 00001c b106                      	IN		R16, PINC		//Leer el pinc
 00001d 1710                      	CP		R17, R16		//Comparar el estado de los botones.
 00001e f3e9                      	BREQ	MAIN			//No hay cambios, releer
-00001f 940e 007c                 	CALL	DELAY
+00001f 940e 007b                 	CALL	DELAY
 000021 b106                      	IN		R16, PINC		//confirmar si hay botonazo
 000022 1710                      	CP		R17, R16
 000023 f3c1                      	BREQ	MAIN			//No hay cambios, releer
@@ -1139,111 +1139,112 @@ C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\L
 000039 e02f                      	LDI		R18, 0x0F		//Reiniciar contador
 00003a 9508                      	RET
                                  
+                                 //Logica para saber que salida debe tener el display
                                  DISPLAY:
-00003b 3020                      	CPI		R18, 0x00
-00003c f0f9                      	BREQ	ZERO
+00003b 3020                      	CPI		R18, 0x00		//Comparamos con el numero
+00003c f0f1                      	BREQ	ZERO			//Si es igual se ejecutara la funcion del numero
 00003d 3021                      	CPI		R18, 0x01
-00003e f0f9                      	BREQ	ONE
+00003e f0f1                      	BREQ	ONE
 00003f 3022                      	CPI		R18, 0x02
-000040 f0f9                      	BREQ	TWO
+000040 f0f1                      	BREQ	TWO
 000041 3023                      	CPI		R18, 0x03
-000042 f0f9                      	BREQ	THREE
+000042 f0f1                      	BREQ	THREE
 000043 3024                      	CPI		R18, 0x04
-000044 f0f9                      	BREQ	FOUR
+000044 f0f1                      	BREQ	FOUR
 000045 3025                      	CPI		R18, 0x05
-000046 f0f9                      	BREQ	FIVE
+000046 f0f1                      	BREQ	FIVE
 000047 3026                      	CPI		R18, 0x06
-000048 f0f9                      	BREQ	SIX
+000048 f0f1                      	BREQ	SIX
 000049 3027                      	CPI		R18, 0x07
-00004a f0f9                      	BREQ	SEVEN
+00004a f0f1                      	BREQ	SEVEN
 00004b 3028                      	CPI		R18, 0x08
-00004c f0f9                      	BREQ	EIGHT
+00004c f0f1                      	BREQ	EIGHT
 00004d 3029                      	CPI		R18, 0x09
-00004e f0f9                      	BREQ	NINE
+00004e f0f1                      	BREQ	NINE
 00004f 302a                      	CPI		R18, 0x0A
-000050 f0f9                      	BREQ	A
+000050 f0f1                      	BREQ	A
 000051 302b                      	CPI		R18, 0x0B
-000052 f0f9                      	BREQ	B
+000052 f0f1                      	BREQ	B
 000053 302c                      	CPI		R18, 0x0C
-000054 f0f9                      	BREQ	C
+000054 f0f1                      	BREQ	C
 000055 302d                      	CPI		R18, 0x0D
-000056 f0f9                      	BREQ	D
+000056 f0f1                      	BREQ	D
 000057 302e                      	CPI		R18, 0x0E
-000058 f0f9                      	BREQ	E
+000058 f0f1                      	BREQ	E
 000059 302f                      	CPI		R18, 0x0F
-00005a f0f9                      	BREQ	F
-00005b 9508                      	RET						//Temporal hasta completar el codigo
+00005a f0f1                      	BREQ	F	
+                                 //Todos los numeros tienen su valor correspondiente a las conexiones electricas			
                                  ZERO:
                                  	//Todos los pines en HIGH menos el pin3 y el pin7
-00005c e737                      	LDI		R19, 0b01110111	//Asignarle el valor para formar el zero	
-00005d 9508                      	RET
+00005b e737                      	LDI		R19, 0b01110111	//Asignarle el valor para formar el zero	
+00005c 9508                      	RET
                                  ONE:
-00005e e530                      	LDI		R19, 0b01010000
-00005f 9508                      	RET
+00005d e530                      	LDI		R19, 0b01010000
+00005e 9508                      	RET
                                  TWO:
-000060 e33b                      	LDI		R19, 0b00111011
-000061 9508                      	RET
+00005f e33b                      	LDI		R19, 0b00111011
+000060 9508                      	RET
                                  THREE:
-000062 e73a                      	LDI		R19, 0b01111010
-000063 9508                      	RET		
+000061 e73a                      	LDI		R19, 0b01111010
+000062 9508                      	RET		
                                  FOUR: //J
-000064 e53c                      	LDI		R19, 0b01011100
-000065 9508                      	RET		
+000063 e53c                      	LDI		R19, 0b01011100
+000064 9508                      	RET		
                                  
                                  FIVE:
-000066 e63e                      	LDI		R19, 0b01101110
-000067 9508                      	RET		
+000065 e63e                      	LDI		R19, 0b01101110
+000066 9508                      	RET		
                                  
                                  SIX:
-000068 e63f                      	LDI		R19, 0b01101111
-000069 9508                      	RET		
+000067 e63f                      	LDI		R19, 0b01101111
+000068 9508                      	RET		
                                  
                                  SEVEN:
-00006a e730                      	LDI		R19, 0b01110000
-00006b 9508                      	RET		
+000069 e730                      	LDI		R19, 0b01110000
+00006a 9508                      	RET		
                                  EIGHT:
-00006c e73f                      	LDI		R19, 0b01111111
+00006b e73f                      	LDI		R19, 0b01111111
                                  
-00006d 9508                      	RET		
+00006c 9508                      	RET		
                                  NINE:
-00006e e73e                      	LDI		R19, 0b01111110
+00006d e73e                      	LDI		R19, 0b01111110
                                  
-00006f 9508                      	RET		
+00006e 9508                      	RET		
                                  A:
-000070 e73d                      	LDI		R19, 0b01111101
+00006f e73d                      	LDI		R19, 0b01111101
                                  
-000071 9508                      	RET		
+000070 9508                      	RET		
                                  B:
-000072 e43f                      	LDI		R19, 0b01001111
+000071 e43f                      	LDI		R19, 0b01001111
                                  
-000073 9508                      	RET		
+000072 9508                      	RET		
                                  C:
-000074 e237                      	LDI		R19, 0b00100111
-000075 9508                      	RET		
+000073 e237                      	LDI		R19, 0b00100111
+000074 9508                      	RET		
                                  D:
-000076 e53b                      	LDI		R19, 0b01011011
-000077 9508                      	RET		
+000075 e53b                      	LDI		R19, 0b01011011
+000076 9508                      	RET		
                                  E:
-000078 e23f                      	LDI		R19, 0b00101111
-000079 9508                      	RET		
+000077 e23f                      	LDI		R19, 0b00101111
+000078 9508                      	RET		
                                  F:
-00007a e23d                      	LDI		R19, 0b00101101
-00007b 9508                      	RET		
+000079 e23d                      	LDI		R19, 0b00101101
+00007a 9508                      	RET		
                                  
                                  
                                  
                                  DELAY:
-00007c e040                      	LDI		R20, 0
+00007b e040                      	LDI		R20, 0
                                  SUBDELAY1:
-00007d 9543                      	INC		R20
-00007e 3040                      	CPI		R20,0
-00007f f7e9                      	BRNE	SUBDELAY1
-000080 e040                      	LDI		R20, 0
+00007c 9543                      	INC		R20
+00007d 3040                      	CPI		R20,0
+00007e f7e9                      	BRNE	SUBDELAY1
+00007f e040                      	LDI		R20, 0
                                  SUBDELAY2:
-000081 9543                      	INC		R20
-000082 3040                      	CPI		R20,0
-000083 f7e9                      	BRNE	SUBDELAY2
-000084 9508                      	RET
+000080 9543                      	INC		R20
+000081 3040                      	CPI		R20,0
+000082 f7e9                      	BRNE	SUBDELAY2
+000083 9508                      	RET
 
 
 RESOURCE USE INFORMATION
@@ -1282,7 +1283,7 @@ fmulsu:   0 icall :   0 ijmp  :   0 in    :   2 inc   :   3 jmp   :   0
 ld    :   0 ldd   :   0 ldi   :  34 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   1 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   9 pop   :   0 
-push  :   0 rcall :   0 ret   :  22 reti  :   0 rjmp  :   1 rol   :   0 
+push  :   0 rcall :   0 ret   :  21 reti  :   0 rjmp  :   1 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   2 sec   :   0 seh   :   0 
 sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
@@ -1293,7 +1294,7 @@ Instructions used: 15 out of 113 (13.3%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00010a    266      0    266   32768   0.8%
+[.cseg] 0x000000 0x000108    264      0    264   32768   0.8%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
