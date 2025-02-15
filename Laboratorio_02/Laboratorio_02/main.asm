@@ -65,7 +65,7 @@ SETUP:
 	//pin5=b
 	//pin6=c
 	//pin7= punto
-
+	
 
 //MainLoop
 MAIN:
@@ -168,7 +168,7 @@ SIX:
 	RET		
 
 SEVEN:
-	LDI		R19, 0b00111011
+	LDI		R19, 0b01110000
 	RET		
 EIGHT:
 	LDI		R19, 0b01111111
@@ -183,14 +183,14 @@ A:
 
 	RET		
 B:
-	LDI		R19, 0b11111111
+	LDI		R19, 0b01001111
 
 	RET		
 C:
 	LDI		R19, 0b00100111
 	RET		
 D:
-	LDI		R19, 0b11110111
+	LDI		R19, 0b01101011
 
 	RET		
 E:
