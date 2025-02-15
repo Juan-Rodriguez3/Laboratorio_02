@@ -67,14 +67,12 @@ SETUP:
 	//pin7= punto
 
 
-
-
-
 //MainLoop
 MAIN:
 	IN		R16, PINC		//Leer el pinc
 	CP		R17, R16		//Comparar el estado de los botones.
 	BREQ	MAIN			//No hay cambios, releer
+	CALL	DELAY
 	IN		R16, PINC		//confirmar si hay botonazo
 	CP		R17, R16
 	BREQ	MAIN			//No hay cambios, releer
@@ -113,10 +111,96 @@ RED:
 DISPLAY:
 	CPI		R18, 0x00
 	BREQ	ZERO
+	CPI		R18, 0x01
+	BREQ	ONE
+	CPI		R18, 0x02
+	BREQ	TWO
+	CPI		R18, 0x03
+	BREQ	THREE
+	CPI		R18, 0x04
+	BREQ	FOUR
+	CPI		R18, 0x05
+	BREQ	FIVE
+	CPI		R18, 0x06
+	BREQ	SIX
+	CPI		R18, 0x07
+	BREQ	SEVEN
+	CPI		R18, 0x08
+	BREQ	EIGHT
+	CPI		R18, 0x09
+	BREQ	NINE
+	CPI		R18, 0x0A
+	BREQ	A
+	CPI		R18, 0x0B
+	BREQ	B
+	CPI		R18, 0x0C
+	BREQ	C
+	CPI		R18, 0x0D
+	BREQ	D
+	CPI		R18, 0x0E
+	BREQ	E
+	CPI		R18, 0x0F
+	BREQ	F
+	RET						//Temporal hasta completar el codigo
 ZERO:
 	//Todos los pines en HIGH menos el pin3 y el pin7
 	LDI		R19, 0b01110111	//Asignarle el valor para formar el zero	
 	RET
+ONE:
+	LDI		R19, 0b01010000
+	RET
+TWO:
+	LDI		R19, 0b00111011
+	RET
+THREE:
+	LDI		R19, 0b01111010
+	RET		
+FOUR: //J
+	LDI		R19, 0b01011100
+	RET		
+
+FIVE:
+	LDI		R19, 0b01101110
+	RET		
+
+SIX:
+	LDI		R19, 0b01101111
+	RET		
+
+SEVEN:
+	LDI		R19, 0b00111011
+	RET		
+EIGHT:
+	LDI		R19, 0b01111111
+
+	RET		
+NINE:
+	LDI		R19, 0b01111110
+
+	RET		
+A:
+	LDI		R19, 0b01111101
+
+	RET		
+B:
+	LDI		R19, 0b11111111
+
+	RET		
+C:
+	LDI		R19, 0b00100111
+	RET		
+D:
+	LDI		R19, 0b11110111
+
+	RET		
+E:
+	LDI		R19, 0b00101111
+	RET		
+F:
+	LDI		R19, 0b00101101
+	RET		
+
+
 
 DELAY:
 	LDI		R20, 0

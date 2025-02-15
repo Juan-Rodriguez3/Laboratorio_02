@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm Fri Feb 14 17:43:22 2025
+AVRASM ver. 2.2.8  C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm Fri Feb 14 19:09:40 2025
 
 
 EQU  SIGNATURE_000 0000001e
@@ -697,12 +697,27 @@ EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
 CSEG SETUP        00000004
 CSEG MAIN         0000001c
-CSEG increment    0000002d
-CSEG decrement    00000033
-CSEG DISPLAY      00000039
-CSEG REI          00000031
-CSEG RED          00000037
-CSEG ZERO         0000003b
-CSEG DELAY        0000003d
-CSEG SUBDELAY1    0000003e
-CSEG SUBDELAY2    00000042
+CSEG DELAY        0000007c
+CSEG increment    0000002f
+CSEG decrement    00000035
+CSEG DISPLAY      0000003b
+CSEG REI          00000033
+CSEG RED          00000039
+CSEG ZERO         0000005c
+CSEG ONE          0000005e
+CSEG TWO          00000060
+CSEG THREE        00000062
+CSEG FOUR         00000064
+CSEG FIVE         00000066
+CSEG SIX          00000068
+CSEG SEVEN        0000006a
+CSEG EIGHT        0000006c
+CSEG NINE         0000006e
+CSEG A            00000070
+CSEG B            00000072
+CSEG C            00000074
+CSEG D            00000076
+CSEG E            00000078
+CSEG F            0000007a
+CSEG SUBDELAY1    0000007d
+CSEG SUBDELAY2    00000081

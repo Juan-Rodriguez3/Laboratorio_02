@@ -24,15 +24,30 @@
  </OUTPUT_FILES>
  <LABELS>
   <SETUP><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>22</LINE></SETUP>
-  <MAIN><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>74</LINE></MAIN>
-  <increment><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>94</LINE></increment>
-  <decrement><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>104</LINE></decrement>
-  <DISPLAY><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>113</LINE></DISPLAY>
-  <REI><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>99</LINE></REI>
-  <RED><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>109</LINE></RED>
-  <ZERO><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>116</LINE></ZERO>
-  <DELAY><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>121</LINE></DELAY>
-  <SUBDELAY1><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>123</LINE></SUBDELAY1>
-  <SUBDELAY2><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>128</LINE></SUBDELAY2>
+  <MAIN><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>71</LINE></MAIN>
+  <DELAY><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>205</LINE></DELAY>
+  <increment><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>92</LINE></increment>
+  <decrement><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>102</LINE></decrement>
+  <DISPLAY><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>111</LINE></DISPLAY>
+  <REI><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>97</LINE></REI>
+  <RED><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>107</LINE></RED>
+  <ZERO><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>145</LINE></ZERO>
+  <ONE><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>149</LINE></ONE>
+  <TWO><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>152</LINE></TWO>
+  <THREE><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>155</LINE></THREE>
+  <FOUR><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>158</LINE></FOUR>
+  <FIVE><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>162</LINE></FIVE>
+  <SIX><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>166</LINE></SIX>
+  <SEVEN><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>170</LINE></SEVEN>
+  <EIGHT><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>173</LINE></EIGHT>
+  <NINE><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>177</LINE></NINE>
+  <A><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>181</LINE></A>
+  <B><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>185</LINE></B>
+  <C><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>189</LINE></C>
+  <D><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>192</LINE></D>
+  <E><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>196</LINE></E>
+  <F><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>199</LINE></F>
+  <SUBDELAY1><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>207</LINE></SUBDELAY1>
+  <SUBDELAY2><FILE>C:\Users\alumn\OneDrive\Documentos\Pepito\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>212</LINE></SUBDELAY2>
  </LABELS>
 </ASSEMBLER_INFO>
