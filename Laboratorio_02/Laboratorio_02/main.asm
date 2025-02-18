@@ -13,6 +13,10 @@
 .cseg
 .org 0x0000
 
+// Tabla de conversión hexadecimal a 7 segmentos
+TABLA:
+    .DB 0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B, 0x77, 0x7F, 0x4E, 0x7E, 0x4F, 0x47
+
 //Configuraci?n de pila //0x08FF
 	LDI		R16, LOW(RAMEND)	// Cargar 0xFF a R16
 	OUT		SPL, R16			// Cargar 0xFF a SPL
@@ -66,6 +70,11 @@ SETUP:
 	//pin6=c
 	//pin7= punto
 	
+	//Cargar la tabla como salida
+	LDI		ZH, HIGH(TABLA<<1) //Carga la parte alta de la dirección de tabla en el registro ZH
+	LDI		ZL, LOW(TABLA<<1)	//Carga la parte baja de la dirección de la tabla en el registro ZL
+	LPM		R19, Z				//Carga en R16 el valor de la tabla en ela dirreción Z
+	OUT		PORTD, R19		//Muestra en el puerto D el valor leido de la tabla
 
 //MainLoop
 MAIN:
@@ -81,8 +90,7 @@ MAIN:
 	CALL	increment
 	SBRS	R16,	1		//Revisar si el bit 1 esta en Set	
 	CALL	decrement
-	CALL	DISPLAY
-	OUT		PORTD, R19		//Actualizar salida
+	//OUT		PORTD, R19		//Actualizar salida
 	RJMP	MAIN
 
 
@@ -108,97 +116,6 @@ RED:
 	LDI		R18, 0x0F		//Reiniciar contador
 	RET
 
-//Logica para saber que salida debe tener el display
-DISPLAY:
-	CPI		R18, 0x00		//Comparamos con el numero
-	BREQ	ZERO			//Si es igual se ejecutara la funcion del numero
-	CPI		R18, 0x01
-	BREQ	ONE
-	CPI		R18, 0x02
-	BREQ	TWO
-	CPI		R18, 0x03
-	BREQ	THREE
-	CPI		R18, 0x04
-	BREQ	FOUR
-	CPI		R18, 0x05
-	BREQ	FIVE
-	CPI		R18, 0x06
-	BREQ	SIX
-	CPI		R18, 0x07
-	BREQ	SEVEN
-	CPI		R18, 0x08
-	BREQ	EIGHT
-	CPI		R18, 0x09
-	BREQ	NINE
-	CPI		R18, 0x0A
-	BREQ	A
-	CPI		R18, 0x0B
-	BREQ	B
-	CPI		R18, 0x0C
-	BREQ	C
-	CPI		R18, 0x0D
-	BREQ	D
-	CPI		R18, 0x0E
-	BREQ	E
-	CPI		R18, 0x0F
-	BREQ	F	
-//Todos los numeros tienen su valor correspondiente a las conexiones electricas			
-ZERO:
-	//Todos los pines en HIGH menos el pin3 y el pin7
-	LDI		R19, 0b01110111	//Asignarle el valor para formar el zero	
-	RET
-ONE:
-	LDI		R19, 0b01010000
-	RET
-TWO:
-	LDI		R19, 0b00111011
-	RET
-THREE:
-	LDI		R19, 0b01111010
-	RET		
-FOUR: //J
-	LDI		R19, 0b01011100
-	RET		
-
-FIVE:
-	LDI		R19, 0b01101110
-	RET		
-
-SIX:
-	LDI		R19, 0b01101111
-	RET		
-
-SEVEN:
-	LDI		R19, 0b01110000
-	RET		
-EIGHT:
-	LDI		R19, 0b01111111
-
-	RET		
-NINE:
-	LDI		R19, 0b01111110
-
-	RET		
-A:
-	LDI		R19, 0b01111101
-
-	RET		
-B:
-	LDI		R19, 0b01001111
-
-	RET		
-C:
-	LDI		R19, 0b00100111
-	RET		
-D:
-	LDI		R19, 0b01011011
-	RET		
-E:
-	LDI		R19, 0b00101111
-	RET		
-F:
-	LDI		R19, 0b00101101
-	RET		
 
 
 
