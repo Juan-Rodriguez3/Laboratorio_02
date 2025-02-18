@@ -111,7 +111,7 @@ OVF:
 	
 	LPM		R19, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
 	OUT		PORTD, R19		   //Muestra en el puerto D el valor leido de la tabla
-	LDI		R18,	0xFF
+	LDI		R18,	0x00
 	RET
 
 UNF:
@@ -119,7 +119,7 @@ UNF:
 	LDI		ZL, LOW(TABLA +15)	//Carga la parte baja de la dirección de la tabla en el registro ZL
 	LPM		R19, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
 	OUT		PORTD, R19		   //Muestra en el puerto D el valor leido de la tabla
-	LDI		R18,	0xFF
+	LDI		R18,	0x0F
 	RET
 
 
@@ -128,7 +128,7 @@ decrement:
 	CPI		R18, 0x00
 	BREQ	UNF
 	SBIW	Z,	1			//Incrementar el puntero en 1
-	LPM		R19,	Z		//Cargar los datos de la dirrección del puntero
+	LPM		R19, Z		//Cargar los datos de la dirrección del puntero
 	RET
 
 
