@@ -127,6 +127,7 @@ UNF:
 decrement:
 	CPI		R18, 0x00
 	BREQ	UNF
+	DEC		R18
 	SBIW	Z,	1			//Incrementar el puntero en 1
 	LPM		R19, Z		//Cargar los datos de la dirrección del puntero
 	RET
