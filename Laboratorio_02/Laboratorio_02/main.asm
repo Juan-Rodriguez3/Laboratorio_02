@@ -98,20 +98,38 @@ MAIN:
 
 //Incrementar el contador
 increment:
-	CPI		R18, 0x0F		//Limite del contador
-	BREQ	REI				//Reiniciar si hay overflow
 	INC		R18
-	RET
-REI:
-	LDI		R18, 0x00		//Reiniciar contador
-	RET
-
-//Decrementar el contador
-decrement:
-	SBIW	Z,	1			//Incrementar el puntero en 1
+	CPI		R18, 0x10
+	BREQ	OVF
+	ADIW	Z,	1			//Incrementar el puntero en 1
 	LPM		R19,	Z		//Cargar los datos de la dirrección del puntero
 	RET
 
+OVF:
+	LDI		ZH, HIGH(TABLA<<1)  //Carga la parte alta de la dirección de tabla en el registro ZH
+	LDI		ZL, LOW(TABLA<<1)	//Carga la parte baja de la dirección de la tabla en el registro ZL
+	
+	LPM		R19, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
+	OUT		PORTD, R19		   //Muestra en el puerto D el valor leido de la tabla
+	LDI		R18,	0xFF
+	RET
+
+UNF:
+	LDI		ZH, HIGH(TABLA +15) //Carga la parte alta de la dirección de la tabla en el registro ZL
+	LDI		ZL, LOW(TABLA +15)	//Carga la parte baja de la dirección de la tabla en el registro ZL
+	LPM		R19, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
+	OUT		PORTD, R19		   //Muestra en el puerto D el valor leido de la tabla
+	LDI		R18,	0xFF
+	RET
+
+
+//Decrementar el contador
+decrement:
+	CPI		R18, 0x00
+	BREQ	UNF
+	SBIW	Z,	1			//Incrementar el puntero en 1
+	LPM		R19,	Z		//Cargar los datos de la dirrección del puntero
+	RET
 
 
 
@@ -128,4 +146,3 @@ SUBDELAY2:
 	CPI		R20,0
 	BRNE	SUBDELAY2
 	RET
-	
