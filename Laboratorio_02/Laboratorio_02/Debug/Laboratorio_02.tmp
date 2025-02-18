@@ -23,31 +23,14 @@
   <FILE>Laboratorio_02.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <SETUP><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>22</LINE></SETUP>
-  <MAIN><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>71</LINE></MAIN>
-  <DELAY><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>205</LINE></DELAY>
-  <increment><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>92</LINE></increment>
-  <decrement><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>102</LINE></decrement>
-  <DISPLAY><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>112</LINE></DISPLAY>
-  <REI><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>97</LINE></REI>
-  <RED><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>107</LINE></RED>
-  <ZERO><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>146</LINE></ZERO>
-  <ONE><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>150</LINE></ONE>
-  <TWO><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>153</LINE></TWO>
-  <THREE><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>156</LINE></THREE>
-  <FOUR><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>159</LINE></FOUR>
-  <FIVE><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>163</LINE></FIVE>
-  <SIX><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>167</LINE></SIX>
-  <SEVEN><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>171</LINE></SEVEN>
-  <EIGHT><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>174</LINE></EIGHT>
-  <NINE><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>178</LINE></NINE>
-  <A><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>182</LINE></A>
-  <B><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>186</LINE></B>
-  <C><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>190</LINE></C>
-  <D><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>193</LINE></D>
-  <E><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>196</LINE></E>
-  <F><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>199</LINE></F>
-  <SUBDELAY1><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>207</LINE></SUBDELAY1>
-  <SUBDELAY2><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>212</LINE></SUBDELAY2>
+  <TABLA><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>17</LINE></TABLA>
+  <SETUP><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>26</LINE></SETUP>
+  <MAIN><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>80</LINE></MAIN>
+  <DELAY><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>119</LINE></DELAY>
+  <increment><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>100</LINE></increment>
+  <decrement><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>110</LINE></decrement>
+  <REI><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>105</LINE></REI>
+  <SUBDELAY1><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>121</LINE></SUBDELAY1>
+  <SUBDELAY2><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Laboratorio_02\Laboratorio_02\main.asm</FILE><LINE>126</LINE></SUBDELAY2>
  </LABELS>
 </ASSEMBLER_INFO>
