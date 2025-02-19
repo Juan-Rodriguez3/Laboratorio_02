@@ -10,13 +10,14 @@
 ; Descripcion: Este programa consiste en un contador binario de 4 bits que incrementa cada 100 ms. 
 ;*********************
 .include "M328PDEF.inc"
-.def COUNTER = R31
-.def DISPLAY = R30
+.def COUNTER = R20
+.def DISPLAY = R21
 .cseg
 
 .org 0x0000
 	RJMP	SETUP			//Salto al SETUP
-.org PCINT1_vect
+
+.org PCI2addr
     RJMP	PCINT1_ISR      //Vector de interrupción por cambio de pin en PCINT1 (PC0-PC6)
 
 
@@ -107,7 +108,7 @@ INIT_TMR0:
 PCINT1_ISR:
 	IN		R16, PINC				//Leer el estado de los botones
 	SBRS	R17, 0					//Revisar si el pin0 esta set
-	SBI		PB4						//Encender Alarma
+	SBI		PORTB, 4				//Encender Alarma
 	SBRS	R17, 1					//Revisar si el pin1 esta set
-	CBI		PB4						//Apgar Alarma
+	CBI		PORTB, 4				//Apgar Alarma
 	RETI
