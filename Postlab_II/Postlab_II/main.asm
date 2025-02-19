@@ -106,10 +106,19 @@ SETUP:
 overflow:
 	ANDI	R18, 0x10			//Se reinician los 4 bit menos significativos
 	SBRS	R18, 4				//Salta si el 4to bit is high
-	LDI		R18, 0x10
+	RJMP	ALARMA_SET
 	SBRC	R18, 4				//Salta si el 4to bit is low
-	LDI		R18, 0x00
-	OUT		PORTB, R18
+	RJMP	ALARMA_RESET		
+	RJMP	MAIN
+
+ALARMA_SET:
+	LDI		R18, 0x10			//Encender la alarma
+	OUT		PORTB, R18			//Cargar en el puerto B
+	RJMP	MAIN
+
+ALARMA_RESET:
+	LDI		R18, 0x00			//Apagar la alarma
+	OUT		PORTB, R18			//Cargar en el puerto B
 	RJMP	MAIN
 
 // NON-Interrupt subroutines
@@ -122,6 +131,8 @@ INIT_TMR0:
 
 //Subrutinas de Interrupción
 PCINT1_ISR:
+	ANDI	R18, 0x10				//Borrar los 4 bits menos significativos
+	OUT		PORTB, R18
 	IN		R17, PINC				//Leer el estado de los botones
 	SBRS	R17, 0					//Revisar si el pin0 esta set
 	CALL	increment				//Incrementar el display
