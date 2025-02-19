@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm Tue Feb 18 23:50:37 2025
+AVRASM ver. 2.2.8  C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm Wed Feb 19 01:05:12 2025
 
 
 EQU  SIGNATURE_000 0000001e
@@ -698,7 +698,7 @@ EQU  INT_VECTORS_SIZE 00000034
 DEF  COUNTER      r20
 DEF  DISPLAY      r21
 CSEG SETUP        0000000f
-CSEG PCINT1_ISR   00000047
-CSEG INIT_TMR0    00000042
-CSEG MAIN         00000030
-CSEG overflow     0000003f
+CSEG PCINT1_ISR   00000048
+CSEG INIT_TMR0    00000043
+CSEG MAIN         00000031
+CSEG overflow     00000040

@@ -12,6 +12,7 @@
 .include "M328PDEF.inc"
 .def COUNTER = R20
 .def DISPLAY = R21
+
 .cseg
 
 .org 0x0000
@@ -65,6 +66,7 @@ SETUP:
 	LDI		COUNTER, 0x00
 	LDI		DISPLAY, 0x00
 	LDI		R18, 0x00
+	LDI		R19, 0x10				//Desbordamiento por defaut
 
 	//Habilitar el Pin Change Interrupt Control Register
 	LDI		R16,	0X02			//Encender el bit PCIE1
@@ -85,14 +87,14 @@ SETUP:
 	CPI		COUNTER, 100			// R20 = 10 despu?s 100ms (el TCNT0 est? en to 10 ms)
 	BRNE	MAIN
 	CLR		COUNTER
-	INC     R18
-	CPI		R18, 0x10				//comparar con 16
+	CP		R18, R19				//comparar con el desbordamiento
 	BREQ	overflow				//si es 16 ejecutar salta a overflow
+	INC     R18
 	OUT		PORTB, R18				//si no es 16 cargar el valor 
 	RJMP	MAIN
 
-	overflow:
-	LDI		R18, 0x00				//si es 16 el valor hay of y se hace 0
+overflow:
+	ANDI		R18, 0x10			//Se reinician los 4 bit menos significativos
 	OUT		PORTB, R18
 	RJMP	MAIN
 
@@ -111,4 +113,10 @@ PCINT1_ISR:
 	LDI		R18, 0x10				//Encender Alarma
 	SBRS	R17, 1					//Revisar si el pin1 esta set
 	LDI		R18, 0x00				//Apagar Alarma
+	//Modificar desbordamiento
+	SBRS	R18, 4					//Revisar si el pin4 esta set
+	LDI		R19, 0x0F				//Encender Alarma
+	SBRC	R18, 4					//Revisar si el pin1 esta set
+	LDI		R19, 0x1F				//Apagar Alarma
+	OUT		PORTB, R18				//Cargar 
 	RETI

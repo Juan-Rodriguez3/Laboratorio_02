@@ -23,10 +23,10 @@
   <FILE>Postlab_II.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <SETUP><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>30</LINE></SETUP>
-  <PCINT1_ISR><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>108</LINE></PCINT1_ISR>
-  <INIT_TMR0><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>100</LINE></INIT_TMR0>
-  <MAIN><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>77</LINE></MAIN>
-  <overflow><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>94</LINE></overflow>
+  <SETUP><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>31</LINE></SETUP>
+  <PCINT1_ISR><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>110</LINE></PCINT1_ISR>
+  <INIT_TMR0><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>102</LINE></INIT_TMR0>
+  <MAIN><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>79</LINE></MAIN>
+  <overflow><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>96</LINE></overflow>
  </LABELS>
 </ASSEMBLER_INFO>
