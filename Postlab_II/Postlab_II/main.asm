@@ -11,8 +11,8 @@
 ;*********************
 .include "M328PDEF.inc"
 .def COUNTER = R20
-.def DISPLAY = R21
-
+.def COUNT_DISP = R21
+.def DISPLAY = R22
 .cseg
 
 .org 0x0000
@@ -21,6 +21,9 @@
 .org PCI2addr
     RJMP	PCINT1_ISR      //Vector de interrupción por cambio de pin en PCINT1 (PC0-PC6)
 
+// Tabla de conversión hexadecimal a 7 segmentos
+TABLA:
+    .DB 0x77, 0x50, 0x3B, 0x7A, 0x5C, 0x6E, 0x6F, 0x70, 0x7F, 0x7E, 0x7D, 0x4F, 0x27, 0x5B, 0x2F, 0x2D
 
 //Configuraci?n de pila //0x08FF
 	LDI		R16, LOW(RAMEND)			// Cargar 0xFF a R16
@@ -75,6 +78,12 @@ SETUP:
 	STS		PCMSK1,	R16				//	Cargar a PCMSK1
 
 	SEI              ; Habilita interrupciones globales
+
+	//Cargar la tabla como salida
+	LDI		ZH, HIGH(TABLA<<1)  //Carga la parte alta de la dirección de tabla en el registro ZH
+	LDI		ZL, LOW(TABLA<<1)	//Carga la parte baja de la dirección de la tabla en el registro ZL
+	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
+	OUT		PORTD, DISPLAY	
 
 	MAIN:
 	IN		R16, TIFR0				// Leer registro de interrupcion 
