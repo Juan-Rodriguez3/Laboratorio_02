@@ -68,7 +68,8 @@ SETUP:
 	//Variables
 	LDI		COUNTER, 0x00
 	LDI		DISPLAY, 0x00
-	LDI		R18, 0x00
+	LDI		COUNT_DISP, 0X00
+	LDI		R18, 0x00				//Salida de LEDS
 	LDI		R19, 0x10				//Desbordamiento por defaut
 
 	//Habilitar el Pin Change Interrupt Control Register
@@ -96,14 +97,18 @@ SETUP:
 	CPI		COUNTER, 100			// R20 = 10 despu?s 100ms (el TCNT0 est? en to 10 ms)
 	BRNE	MAIN
 	CLR		COUNTER
-	CP		R18, R19				//comparar con el desbordamiento
+	CP		R18, COUNT_DISP				//comparar con el desbordamiento
 	BREQ	overflow				//si es 16 ejecutar salta a overflow
 	INC     R18
 	OUT		PORTB, R18				//si no es 16 cargar el valor 
 	RJMP	MAIN
 
 overflow:
-	ANDI		R18, 0x10			//Se reinician los 4 bit menos significativos
+	ANDI	R18, 0x10			//Se reinician los 4 bit menos significativos
+	SBRS	R18, 4				//Salta si el 4to bit is high
+	LDI		R18, 0x10
+	SBRC	R18, 4				//Salta si el 4to bit is low
+	LDI		R18, 0x00
 	OUT		PORTB, R18
 	RJMP	MAIN
 
@@ -119,13 +124,45 @@ INIT_TMR0:
 PCINT1_ISR:
 	IN		R17, PINC				//Leer el estado de los botones
 	SBRS	R17, 0					//Revisar si el pin0 esta set
-	LDI		R18, 0x10				//Encender Alarma
+	CALL	increment				//Incrementar el display
 	SBRS	R17, 1					//Revisar si el pin1 esta set
-	LDI		R18, 0x00				//Apagar Alarma
-	//Modificar desbordamiento
-	SBRS	R18, 4					//Revisar si el pin4 esta set
-	LDI		R19, 0x0F				//Encender Alarma
-	SBRC	R18, 4					//Revisar si el pin1 esta set
-	LDI		R19, 0x1F				//Apagar Alarma
-	OUT		PORTB, R18				//Cargar 
+	CALL	decrement				//Decrementar el display
+	OUT		PORTD, DISPLAY		   //Muestra en el puerto D el valor leido de la tabla
 	RETI
+
+//Subrutinas para el display
+
+//Incrementar el contador
+increment:
+	INC		COUNT_DISP
+	CPI		COUNT_DISP, 0x10
+	BREQ	OVF
+	ADIW	Z,	1			//Incrementar el puntero en 1
+	LPM		DISPLAY,	Z		//Cargar los datos de la dirrección del puntero
+	RET
+
+OVF:
+	LDI		ZH, HIGH(TABLA<<1)  //Carga la parte alta de la dirección de tabla en el registro ZH
+	LDI		ZL, LOW(TABLA<<1)	//Carga la parte baja de la dirección de la tabla en el registro ZL
+	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
+	LDI		COUNT_DISP,	0x00
+	RET
+
+UNF:
+	LDI		ZH, HIGH(TABLA<<1) //Carga la parte alta de la dirección de la tabla en el registro ZL
+	LDI		ZL, LOW(TABLA<<1)	//Carga la parte baja de la dirección de la tabla en el registro ZL
+	ADIW	Z,	15
+	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
+	OUT		PORTD, DISPLAY		   //Muestra en el puerto D el valor leido de la tabla
+	LDI		COUNT_DISP,	0x0F
+	RET
+
+
+//Decrementar el contador
+decrement:
+	CPI		COUNT_DISP, 0x00
+	BREQ	UNF
+	DEC		COUNT_DISP
+	SBIW	Z,	1			//Incrementar el puntero en 1
+	LPM		DISPLAY, Z		//Cargar los datos de la dirrección del puntero
+	RET
