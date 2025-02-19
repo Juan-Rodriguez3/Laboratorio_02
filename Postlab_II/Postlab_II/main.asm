@@ -10,9 +10,15 @@
 ; Descripcion: Este programa consiste en un contador binario de 4 bits que incrementa cada 100 ms. 
 ;*********************
 .include "M328PDEF.inc"
-.def COUNTER = R20
+.def COUNTER = R31
+.def DISPLAY = R30
 .cseg
+
 .org 0x0000
+	RJMP	SETUP			//Salto al SETUP
+.org PCINT1_vect
+    RJMP	PCINT1_ISR      //Vector de interrupción por cambio de pin en PCINT1 (PC0-PC6)
+
 
 //Configuraci?n de pila //0x08FF
 	LDI		R16, LOW(RAMEND)			// Cargar 0xFF a R16
@@ -53,8 +59,19 @@ SETUP:
 	// Deshabilitar serial 
 	LDI		R16, 0x00
 	STS		UCSR0B, R16
+
+	//Variables
 	LDI		COUNTER, 0x00
-	LDI		R17, 0x00
+	LDI		DISPLAY, 0x00
+	LDI		R18, 0x00
+
+	//Habilitar el Pin Change Interrupt Control Register
+	LDI		R16,	0X02			//Encender el bit PCIE1
+	STS		PCICR,	R16				//Habilitar el PCI en el pin C
+	LDI		R16,	(1<<PCINT8) | (1<<PCINT9)	//Habilitar pin 0 y pin 1
+	STS		PCMSK1,	R16				//	Cargar a PCMSK1
+
+	SEI              ; Habilita interrupciones globales
 
 	MAIN:
 	IN		R16, TIFR0				// Leer registro de interrupcion 
@@ -67,10 +84,10 @@ SETUP:
 	CPI		COUNTER, 100			// R20 = 10 despu?s 100ms (el TCNT0 est? en to 10 ms)
 	BRNE	MAIN
 	CLR		COUNTER
-	INC     R17
-	CPI		R17, 0x10				//comparar con 16
+	INC     R18
+	CPI		R18, 0x10				//comparar con 16
 	BREQ	overflow				//si es 16 ejecutar salta a overflow
-	OUT		PORTB, R17				//si no es 16 cargar el valor 
+	OUT		PORTB, R18				//si no es 16 cargar el valor 
 	RJMP	MAIN
 
 	overflow:
@@ -85,3 +102,12 @@ INIT_TMR0:
 	LDI		R16, 100
 	OUT		TCNT0, R16				// Cargar valor inicial en TCNT0
 	RET
+
+//Subrutinas de Interrupción
+PCINT1_ISR:
+	IN		R16, PINC				//Leer el estado de los botones
+	SBRS	R17, 0					//Revisar si el pin0 esta set
+	SBI		PB4						//Encender Alarma
+	SBRS	R17, 1					//Revisar si el pin1 esta set
+	CBI		PB4						//Apgar Alarma
+	RETI
