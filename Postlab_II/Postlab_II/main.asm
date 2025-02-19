@@ -70,7 +70,7 @@ SETUP:
 	LDI		DISPLAY, 0x00
 	LDI		COUNT_DISP, 0X00
 	LDI		R18, 0x00				//Salida de LEDS
-	LDI		R19, 0x10				//Desbordamiento por defaut
+	LDI		R19, 0x10				//Desbordamiento auxiliar
 
 	//Habilitar el Pin Change Interrupt Control Register
 	LDI		R16,	0X02			//Encender el bit PCIE1
@@ -113,10 +113,12 @@ overflow:
 
 ALARMA_SET:
 	LDI		R18, 0x10			//Encender la alarma
+	ADD		COUNT_DISP, R18		//Agregarle el 4to Bit para el corriemiento.
 	OUT		PORTB, R18			//Cargar en el puerto B
 	RJMP	MAIN
 
 ALARMA_RESET:
+	ANDI	COUNT_DISP, 0x0F	//Conservar los 4 bits menos significativos
 	LDI		R18, 0x00			//Apagar la alarma
 	OUT		PORTB, R18			//Cargar en el puerto B
 	RJMP	MAIN
