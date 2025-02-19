@@ -24,10 +24,14 @@
  </OUTPUT_FILES>
  <LABELS>
   <SETUP><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>34</LINE></SETUP>
-  <PCINT1_ISR><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>119</LINE></PCINT1_ISR>
+  <PCINT1_ISR><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>124</LINE></PCINT1_ISR>
   <TABLA><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>25</LINE></TABLA>
-  <INIT_TMR0><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>111</LINE></INIT_TMR0>
-  <MAIN><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>88</LINE></MAIN>
-  <overflow><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>105</LINE></overflow>
+  <INIT_TMR0><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>116</LINE></INIT_TMR0>
+  <MAIN><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>89</LINE></MAIN>
+  <overflow><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>106</LINE></overflow>
+  <increment><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>136</LINE></increment>
+  <decrement><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>162</LINE></decrement>
+  <OVF><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>144</LINE></OVF>
+  <UNF><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>151</LINE></UNF>
  </LABELS>
 </ASSEMBLER_INFO>
