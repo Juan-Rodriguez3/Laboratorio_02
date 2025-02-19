@@ -92,8 +92,8 @@ SETUP:
 	RJMP	MAIN
 
 	overflow:
-	LDI		R17, 0x00				//si es 16 el valor hay of y se hace 0
-	OUT		PORTB, R17
+	LDI		R18, 0x00				//si es 16 el valor hay of y se hace 0
+	OUT		PORTB, R18
 	RJMP	MAIN
 
 // NON-Interrupt subroutines
@@ -106,9 +106,9 @@ INIT_TMR0:
 
 //Subrutinas de Interrupción
 PCINT1_ISR:
-	IN		R16, PINC				//Leer el estado de los botones
+	IN		R17, PINC				//Leer el estado de los botones
 	SBRS	R17, 0					//Revisar si el pin0 esta set
-	SBI		PORTB, 4				//Encender Alarma
+	LDI		R18, 0x10				//Encender Alarma
 	SBRS	R17, 1					//Revisar si el pin1 esta set
-	CBI		PORTB, 4				//Apgar Alarma
+	LDI		R18, 0x00				//Apagar Alarma
 	RETI
