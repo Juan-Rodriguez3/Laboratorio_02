@@ -23,17 +23,17 @@
   <FILE>Postlab_II.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <SETUP><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>34</LINE></SETUP>
-  <PCINT1_ISR><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>135</LINE></PCINT1_ISR>
-  <TABLA><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>25</LINE></TABLA>
-  <INIT_TMR0><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>127</LINE></INIT_TMR0>
-  <MAIN><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>89</LINE></MAIN>
-  <overflow><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>106</LINE></overflow>
-  <ALARMA_SET><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>114</LINE></ALARMA_SET>
-  <ALARMA_RESET><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>120</LINE></ALARMA_RESET>
-  <increment><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>149</LINE></increment>
-  <decrement><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>175</LINE></decrement>
-  <OVF><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>157</LINE></OVF>
-  <UNF><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>164</LINE></UNF>
+  <SETUP><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>33</LINE></SETUP>
+  <PCINT1_ISR><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>145</LINE></PCINT1_ISR>
+  <TABLA><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>28</LINE></TABLA>
+  <INIT_TMR0><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>137</LINE></INIT_TMR0>
+  <MAIN><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>95</LINE></MAIN>
+  <overflow><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>112</LINE></overflow>
+  <ALARMA_SET><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>120</LINE></ALARMA_SET>
+  <ALARMA_RESET><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>128</LINE></ALARMA_RESET>
+  <increment><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>159</LINE></increment>
+  <decrement><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>185</LINE></decrement>
+  <OVF><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>167</LINE></OVF>
+  <UNF><FILE>C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm</FILE><LINE>174</LINE></UNF>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm Wed Feb 19 01:53:13 2025
+AVRASM ver. 2.2.8  C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm Thu Feb 20 01:33:17 2025
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm(12): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\M328PDEF.inc'
@@ -994,7 +994,7 @@ C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm(12)
                                  ; Proyecto: Post-lab II
                                  ; Hardware: ATmega328P
                                  ; Creado: 18/02/2025
-                                 ; Modificado: 18/02/2025
+                                 ; Modificado: 20/02/2025
                                  ; Descripcion: Este programa consiste en un contador binario de 4 bits que incrementa cada 100 ms. 
                                  ;*********************
                                  .include "M328PDEF.inc"
@@ -1044,13 +1044,16 @@ C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm(12)
                                  .def COUNTER = R20
                                  .def COUNT_DISP = R21
                                  .def DISPLAY = R22
+                                 .def LIMIT_DISPL = R23
+                                 .def LIMIT_DISPH = R24
                                  .cseg
                                  
                                  .org 0x0000
-000000 c016                      	RJMP	SETUP			//Salto al SETUP
+000000 c012                      	RJMP	SETUP			//Salto al SETUP
                                  
+                                 //Saltar a la subrutina de interrupción
                                  .org PCI2addr
-00000a c055                          RJMP	PCINT1_ISR      //Vector de interrupción por cambio de pin en PCINT1 (PC0-PC6)
+00000a c05a                          RJMP	PCINT1_ISR      //Vector de interrupción por cambio de pin en PCINT1 (PC0-PC6)
                                  
                                  // Tabla de conversión hexadecimal a 7 segmentos
                                  TABLA:
@@ -1063,13 +1066,15 @@ C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm(12)
 000011 5b27
 000012 2d2f                          .DB 0x77, 0x50, 0x3B, 0x7A, 0x5C, 0x6E, 0x6F, 0x70, 0x7F, 0x7E, 0x7D, 0x4F, 0x27, 0x5B, 0x2F, 0x2D
                                  
-                                 //Configuraci?n de pila //0x08FF
-000013 ef0f                      	LDI		R16, LOW(RAMEND)			// Cargar 0xFF a R16
-000014 bf0d                      	OUT		SPL, R16					// Cargar 0xFF a SPL
-000015 e008                      	LDI		R16, HIGH(RAMEND)	
-000016 bf0e                      	OUT		SPH, R16					// Cargar 0x08 a SPH
+                                 
                                  
                                  SETUP:
+                                 	//Configuracion de pila //0x08FF
+000013 ef0f                      	LDI		R16, LOW(RAMEND)			// Cargar 0xFF a R16
+000014 bf0d                      	OUT		SPL, R16					// Cargar 0xFF a SPL
+000015 e008                      	LDI		R16, HIGH(RAMEND)			//	
+000016 bf0e                      	OUT		SPH, R16					// Cargar 0x08 a SPH
+                                 
                                  	// Configurar Prescaler 
 000017 e800                      	LDI		R16, (1 << CLKPCE)
 000018 9300 0061                 	STS		CLKPR, R16					// Habilitar cambio de PRESCALER
@@ -1077,7 +1082,7 @@ C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm(12)
 00001b 9300 0061                 	STS		CLKPR, R16					// Configurar Prescaler en 1MHz
                                  	
                                  	// Inicializar timer0
-00001d 940e 005b                 	CALL    INIT_TMR0
+00001d 940e 0060                 	CALL    INIT_TMR0
                                  
                                  	  //Configurar los pines como entradas y salidas
                                  
@@ -1104,118 +1109,123 @@ C:\Users\user\Documents\GitHub\Laboratorio_02\Postlab_II\Postlab_II\main.asm(12)
 00002c 9300 00c1                 	STS		UCSR0B, R16
                                  
                                  	//Variables
-00002e e040                      	LDI		COUNTER, 0x00
-00002f e060                      	LDI		DISPLAY, 0x00
-000030 e050                      	LDI		COUNT_DISP, 0X00
+00002e e040                      	LDI		COUNTER, 0x00			//Contador de desbordamientos del TIMER0
+00002f e060                      	LDI		DISPLAY, 0x00			//Salida del display
+000030 e050                      	LDI		COUNT_DISP, 0X00		//Es el top del contador del leds
 000031 e020                      	LDI		R18, 0x00				//Salida de LEDS
-000032 e130                      	LDI		R19, 0x10				//Desbordamiento auxiliar
+000032 e070                      	LDI		LIMIT_DISPL, 0x00		//Limite bajo para el display
+000033 e08f                      	LDI		LIMIT_DISPH, 0x0F		//Limite alto para el display
                                  
                                  	//Habilitar el Pin Change Interrupt Control Register
-000033 e002                      	LDI		R16,	0X02			//Encender el bit PCIE1
-000034 9300 0068                 	STS		PCICR,	R16				//Habilitar el PCI en el pin C
-000036 e003                      	LDI		R16,	(1<<PCINT8) | (1<<PCINT9)	//Habilitar pin 0 y pin 1
-000037 9300 006c                 	STS		PCMSK1,	R16				//	Cargar a PCMSK1
+000034 e002                      	LDI		R16,	0X02			//Encender el bit PCIE1
+000035 9300 0068                 	STS		PCICR,	R16				//Habilitar el PCI en el pin C
+000037 e003                      	LDI		R16,	(1<<PCINT8) | (1<<PCINT9)	//Habilitar pin 0 y pin 1
+000038 9300 006c                 	STS		PCMSK1,	R16				//	Cargar a PCMSK1
                                  
-000039 9478                      	SEI              ; Habilita interrupciones globales
+00003a 9478                      	SEI              ; Habilita interrupciones globales
                                  
                                  	//Cargar la tabla como salida
-00003a e0f0                      	LDI		ZH, HIGH(TABLA<<1)  //Carga la parte alta de la dirección de tabla en el registro ZH
-00003b e1e6                      	LDI		ZL, LOW(TABLA<<1)	//Carga la parte baja de la dirección de la tabla en el registro ZL
-00003c 9164                      	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
-00003d b96b                      	OUT		PORTD, DISPLAY	
+00003b e0f0                      	LDI		ZH, HIGH(TABLA<<1)  //Carga la parte alta de la dirección de tabla en el registro ZH
+00003c e1e6                      	LDI		ZL, LOW(TABLA<<1)	//Carga la parte baja de la dirección de la tabla en el registro ZL
+00003d 9164                      	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
+00003e b96b                      	OUT		PORTD, DISPLAY	
                                  
-                                 	MAIN:
-00003e b305                      	IN		R16, TIFR0				// Leer registro de interrupcion 
-00003f ff00                      	SBRS	R16, TOV0				// Salta si el bit 0 esta en 1, es la bandera de of
-000040 cffd                      	RJMP	MAIN					// Reiniciar loop si no hay of
-000041 9aa8                      	SBI		TIFR0, TOV0				// Limpiar bandera de "overflow"
-000042 e604                      	LDI		R16, 100
-000043 bd06                      	OUT		TCNT0, R16				// Volver a cargar valor inicial en TCNT0
-000044 9543                      	INC		COUNTER
-000045 3644                      	CPI		COUNTER, 100			// R20 = 10 despu?s 100ms (el TCNT0 est? en to 10 ms)
-000046 f7b9                      	BRNE	MAIN
-000047 2744                      	CLR		COUNTER
-000048 1725                      	CP		R18, COUNT_DISP				//comparar con el desbordamiento
-000049 f019                      	BREQ	overflow				//si es 16 ejecutar salta a overflow
-00004a 9523                      	INC     R18
-00004b b925                      	OUT		PORTB, R18				//si no es 16 cargar el valor 
-00004c cff1                      	RJMP	MAIN
+                                 MAIN:
+00003f b305                      	IN		R16, TIFR0				// Leer registro de interrupcion 
+000040 ff00                      	SBRS	R16, TOV0				// Salta si el bit 0 esta en 1, es la bandera de of
+000041 cffd                      	RJMP	MAIN					// Reiniciar loop si no hay of
+000042 9aa8                      	SBI		TIFR0, TOV0				// Limpiar bandera de "overflow"
+000043 e604                      	LDI		R16, 100
+000044 bd06                      	OUT		TCNT0, R16				// Volver a cargar valor inicial en TCNT0
+000045 9543                      	INC		COUNTER
+000046 3644                      	CPI		COUNTER, 100			// R20 = 10 despu?s 100ms (el TCNT0 est? en to 10 ms)
+000047 f7b9                      	BRNE	MAIN
+000048 2744                      	CLR		COUNTER
+000049 1725                      	CP		R18, COUNT_DISP				//comparar con el desbordamiento
+00004a f019                      	BREQ	overflow				//si es 16 ejecutar salta a overflow
+00004b 9523                      	INC     R18
+00004c b925                      	OUT		PORTB, R18				//si no es 16 cargar el valor 
+00004d cff1                      	RJMP	MAIN
                                  
                                  overflow:
-00004d 7120                      	ANDI	R18, 0x10			//Se reinician los 4 bit menos significativos
-00004e ff24                      	SBRS	R18, 4				//Salta si el 4to bit is high
-00004f c003                      	RJMP	ALARMA_SET
-000050 fd24                      	SBRC	R18, 4				//Salta si el 4to bit is low
-000051 c005                      	RJMP	ALARMA_RESET		
-000052 cfeb                      	RJMP	MAIN
+00004e 7120                      	ANDI	R18, 0x10			//Se reinician los 4 bit menos significativos
+00004f ff24                      	SBRS	R18, 4				//Salta si el 4to bit is high
+000050 c003                      	RJMP	ALARMA_SET
+000051 fd24                      	SBRC	R18, 4				//Salta si el 4to bit is low
+000052 c007                      	RJMP	ALARMA_RESET		
+000053 cfeb                      	RJMP	MAIN
                                  
                                  ALARMA_SET:
-000053 e120                      	LDI		R18, 0x10			//Encender la alarma
-000054 0f52                      	ADD		COUNT_DISP, R18		//Agregarle el 4to Bit para el corriemiento.
-000055 b925                      	OUT		PORTB, R18			//Cargar en el puerto B
-000056 cfe7                      	RJMP	MAIN
+000054 e120                      	LDI		R18, 0x10			//Encender la alarma
+000055 0f52                      	ADD		COUNT_DISP, R18		//Agregarle el 4to Bit para el corriemiento.
+000056 b925                      	OUT		PORTB, R18			//Cargar en el puerto B
+000057 e170                      	LDI		LIMIT_DISPL, 0x10	//Limite bajo para el display con led encendida
+000058 e18f                      	LDI		LIMIT_DISPH, 0x1F	//Limite alto para el display con led encendida
+000059 cfe5                      	RJMP	MAIN
                                  
                                  ALARMA_RESET:
-000057 705f                      	ANDI	COUNT_DISP, 0x0F	//Conservar los 4 bits menos significativos
-000058 e020                      	LDI		R18, 0x00			//Apagar la alarma
-000059 b925                      	OUT		PORTB, R18			//Cargar en el puerto B
-00005a cfe3                      	RJMP	MAIN
+00005a 705f                      	ANDI	COUNT_DISP, 0x0F	//Conservar los 4 bits menos significativos
+00005b e020                      	LDI		R18, 0x00			//Apagar la alarma
+00005c b925                      	OUT		PORTB, R18			//Cargar en el puerto B
+00005d e070                      	LDI		LIMIT_DISPL, 0x00	//Limite bajo para el display con led apagada
+00005e e08f                      	LDI		LIMIT_DISPH, 0x0F	//Limite alto para el display con led apagada
+00005f cfdf                      	RJMP	MAIN
                                  
                                  // NON-Interrupt subroutines
                                  INIT_TMR0:
-00005b e003                      	LDI		R16, (1<<CS01) | (1<<CS00)
-00005c bd05                      	OUT		TCCR0B, R16				// Setear prescaler del TIMER 0 a 64
-00005d e604                      	LDI		R16, 100
-00005e bd06                      	OUT		TCNT0, R16				// Cargar valor inicial en TCNT0
-00005f 9508                      	RET
+000060 e003                      	LDI		R16, (1<<CS01) | (1<<CS00)
+000061 bd05                      	OUT		TCCR0B, R16				// Setear prescaler del TIMER 0 a 64
+000062 e604                      	LDI		R16, 100
+000063 bd06                      	OUT		TCNT0, R16				// Cargar valor inicial en TCNT0
+000064 9508                      	RET
                                  
                                  //Subrutinas de Interrupción
                                  PCINT1_ISR:
-000060 7120                      	ANDI	R18, 0x10				//Borrar los 4 bits menos significativos
-000061 b925                      	OUT		PORTB, R18
-000062 b116                      	IN		R17, PINC				//Leer el estado de los botones
-000063 ff10                      	SBRS	R17, 0					//Revisar si el pin0 esta set
-000064 940e 006b                 	CALL	increment				//Incrementar el display
-000066 ff11                      	SBRS	R17, 1					//Revisar si el pin1 esta set
-000067 940e 007d                 	CALL	decrement				//Decrementar el display
-000069 b96b                      	OUT		PORTD, DISPLAY		   //Muestra en el puerto D el valor leido de la tabla
-00006a 9518                      	RETI
+000065 7120                      	ANDI	R18, 0x10				//Borrar los 4 bits menos significativos
+000066 b925                      	OUT		PORTB, R18
+000067 b116                      	IN		R17, PINC				//Leer el estado de los botones
+000068 ff10                      	SBRS	R17, 0					//Revisar si el pin0 esta set
+000069 940e 0070                 	CALL	increment				//Incrementar el display
+00006b ff11                      	SBRS	R17, 1					//Revisar si el pin1 esta set
+00006c 940e 0082                 	CALL	decrement				//Decrementar el display
+00006e b96b                      	OUT		PORTD, DISPLAY		   //Muestra en el puerto D el valor leido de la tabla
+00006f 9518                      	RETI
                                  
                                  //Subrutinas para el display
                                  
                                  //Incrementar el contador
                                  increment:
-00006b 9553                      	INC		COUNT_DISP
-00006c 3150                      	CPI		COUNT_DISP, 0x10
-00006d f019                      	BREQ	OVF
-00006e 9631                      	ADIW	Z,	1			//Incrementar el puntero en 1
-00006f 9164                      	LPM		DISPLAY,	Z		//Cargar los datos de la dirrección del puntero
-000070 9508                      	RET
-                                 
-                                 OVF:
-000071 e0f0                      	LDI		ZH, HIGH(TABLA<<1)  //Carga la parte alta de la dirección de tabla en el registro ZH
-000072 e1e6                      	LDI		ZL, LOW(TABLA<<1)	//Carga la parte baja de la dirección de la tabla en el registro ZL
-000073 9164                      	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
-000074 e050                      	LDI		COUNT_DISP,	0x00
+000070 1758                      	CP		COUNT_DISP, LIMIT_DISPH
+000071 f021                      	BREQ	OVF
+000072 9553                      	INC		COUNT_DISP
+000073 9631                      	ADIW	Z,	1			//Incrementar el puntero en 1
+000074 9164                      	LPM		DISPLAY,	Z		//Cargar los datos de la dirrección del puntero
 000075 9508                      	RET
                                  
-                                 UNF:
-000076 e0f0                      	LDI		ZH, HIGH(TABLA<<1) //Carga la parte alta de la dirección de la tabla en el registro ZL
+                                 OVF:
+000076 e0f0                      	LDI		ZH, HIGH(TABLA<<1)  //Carga la parte alta de la dirección de tabla en el registro ZH
 000077 e1e6                      	LDI		ZL, LOW(TABLA<<1)	//Carga la parte baja de la dirección de la tabla en el registro ZL
-000078 963f                      	ADIW	Z,	15
-000079 9164                      	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
-00007a b96b                      	OUT		PORTD, DISPLAY		   //Muestra en el puerto D el valor leido de la tabla
-00007b e05f                      	LDI		COUNT_DISP,	0x0F
-00007c 9508                      	RET
+000078 9164                      	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
+000079 2f57                      	MOV		COUNT_DISP,	LIMIT_DISPL
+00007a 9508                      	RET
+                                 
+                                 UNF:
+00007b e0f0                      	LDI		ZH, HIGH(TABLA<<1) //Carga la parte alta de la dirección de la tabla en el registro ZL
+00007c e1e6                      	LDI		ZL, LOW(TABLA<<1)	//Carga la parte baja de la dirección de la tabla en el registro ZL
+00007d 963f                      	ADIW	Z,	15
+00007e 9164                      	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
+00007f b96b                      	OUT		PORTD, DISPLAY		   //Muestra en el puerto D el valor leido de la tabla
+000080 2f58                      	MOV		COUNT_DISP,	LIMIT_DISPH
+000081 9508                      	RET
                                  
                                  
                                  //Decrementar el contador
                                  decrement:
-00007d 3050                      	CPI		COUNT_DISP, 0x00
-00007e f3b9                      	BREQ	UNF
-00007f 955a                      	DEC		COUNT_DISP
-000080 9731                      	SBIW	Z,	1			//Incrementar el puntero en 1
-000081 9164                      	LPM		DISPLAY, Z		//Cargar los datos de la dirrección del puntero
+000082 1757                      	CP		COUNT_DISP, LIMIT_DISPL
+000083 f3b9                      	BREQ	UNF
+000084 955a                      	DEC		COUNT_DISP
+000085 9731                      	SBIW	Z,	1			//Incrementar el puntero en 1
+000086 9164                      	LPM		DISPLAY, Z		//Cargar los datos de la dirrección del puntero
 
 
 RESOURCE USE INFORMATION
@@ -1235,10 +1245,10 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   8 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  34 r17:   3 r18:  14 r19:   1 r20:   4 
-r21:  10 r22:   9 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
+r13:   0 r14:   0 r15:   0 r16:  34 r17:   3 r18:  14 r19:   0 r20:   4 
+r21:  10 r22:   9 r23:   5 r24:   5 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   3 r31:   3 
-Registers used: 10 out of 35 (28.6%)
+Registers used: 11 out of 35 (31.4%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   1 adiw  :   2 and   :   0 
@@ -1248,11 +1258,11 @@ brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0
 brne  :   1 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   3 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   1 cls   :   0 
-clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   1 cpc   :   0 
-cpi   :   3 cpse  :   0 dec   :   1 eor   :   0 fmul  :   0 fmuls :   0 
+clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   3 cpc   :   0 
+cpi   :   1 cpse  :   0 dec   :   1 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   2 inc   :   3 jmp   :   0 
-ld    :   0 ldd   :   0 ldi   :  31 lds   :   0 lpm   :  10 lsl   :   0 
-lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
+ld    :   0 ldd   :   0 ldi   :  34 lds   :   0 lpm   :  10 lsl   :   0 
+lsr   :   0 mov   :   2 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  18 pop   :   0 
 push  :   0 rcall :   0 ret   :   5 reti  :   1 rjmp  :   9 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   1 sbic  :   0 sbis  :   0 
@@ -1260,12 +1270,12 @@ sbiw  :   1 sbr   :   0 sbrc  :   1 sbrs  :   4 sec   :   0 seh   :   0
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   5 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 24 out of 113 (21.2%)
+Instructions used: 25 out of 113 (22.1%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000106    228     16    244   32768   0.7%
+[.cseg] 0x000000 0x000110    238     16    254   32768   0.8%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

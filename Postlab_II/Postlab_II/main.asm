@@ -6,18 +6,21 @@
 ; Proyecto: Post-lab II
 ; Hardware: ATmega328P
 ; Creado: 18/02/2025
-; Modificado: 18/02/2025
+; Modificado: 20/02/2025
 ; Descripcion: Este programa consiste en un contador binario de 4 bits que incrementa cada 100 ms. 
 ;*********************
 .include "M328PDEF.inc"
 .def COUNTER = R20
 .def COUNT_DISP = R21
 .def DISPLAY = R22
+.def LIMIT_DISPL = R23
+.def LIMIT_DISPH = R24
 .cseg
 
 .org 0x0000
 	RJMP	SETUP			//Salto al SETUP
 
+//Saltar a la subrutina de interrupción
 .org PCI2addr
     RJMP	PCINT1_ISR      //Vector de interrupción por cambio de pin en PCINT1 (PC0-PC6)
 
@@ -25,13 +28,15 @@
 TABLA:
     .DB 0x77, 0x50, 0x3B, 0x7A, 0x5C, 0x6E, 0x6F, 0x70, 0x7F, 0x7E, 0x7D, 0x4F, 0x27, 0x5B, 0x2F, 0x2D
 
-//Configuraci?n de pila //0x08FF
-	LDI		R16, LOW(RAMEND)			// Cargar 0xFF a R16
-	OUT		SPL, R16					// Cargar 0xFF a SPL
-	LDI		R16, HIGH(RAMEND)	
-	OUT		SPH, R16					// Cargar 0x08 a SPH
+
 
 SETUP:
+	//Configuracion de pila //0x08FF
+	LDI		R16, LOW(RAMEND)			// Cargar 0xFF a R16
+	OUT		SPL, R16					// Cargar 0xFF a SPL
+	LDI		R16, HIGH(RAMEND)			//	
+	OUT		SPH, R16					// Cargar 0x08 a SPH
+
 	// Configurar Prescaler 
 	LDI		R16, (1 << CLKPCE)
 	STS		CLKPR, R16					// Habilitar cambio de PRESCALER
@@ -66,11 +71,12 @@ SETUP:
 	STS		UCSR0B, R16
 
 	//Variables
-	LDI		COUNTER, 0x00
-	LDI		DISPLAY, 0x00
-	LDI		COUNT_DISP, 0X00
+	LDI		COUNTER, 0x00			//Contador de desbordamientos del TIMER0
+	LDI		DISPLAY, 0x00			//Salida del display
+	LDI		COUNT_DISP, 0X00		//Es el top del contador del leds
 	LDI		R18, 0x00				//Salida de LEDS
-	LDI		R19, 0x10				//Desbordamiento auxiliar
+	LDI		LIMIT_DISPL, 0x00		//Limite bajo para el display
+	LDI		LIMIT_DISPH, 0x0F		//Limite alto para el display
 
 	//Habilitar el Pin Change Interrupt Control Register
 	LDI		R16,	0X02			//Encender el bit PCIE1
@@ -86,7 +92,7 @@ SETUP:
 	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
 	OUT		PORTD, DISPLAY	
 
-	MAIN:
+MAIN:
 	IN		R16, TIFR0				// Leer registro de interrupcion 
 	SBRS	R16, TOV0				// Salta si el bit 0 esta en 1, es la bandera de of
 	RJMP	MAIN					// Reiniciar loop si no hay of
@@ -115,12 +121,16 @@ ALARMA_SET:
 	LDI		R18, 0x10			//Encender la alarma
 	ADD		COUNT_DISP, R18		//Agregarle el 4to Bit para el corriemiento.
 	OUT		PORTB, R18			//Cargar en el puerto B
+	LDI		LIMIT_DISPL, 0x10	//Limite bajo para el display con led encendida
+	LDI		LIMIT_DISPH, 0x1F	//Limite alto para el display con led encendida
 	RJMP	MAIN
 
 ALARMA_RESET:
 	ANDI	COUNT_DISP, 0x0F	//Conservar los 4 bits menos significativos
 	LDI		R18, 0x00			//Apagar la alarma
 	OUT		PORTB, R18			//Cargar en el puerto B
+	LDI		LIMIT_DISPL, 0x00	//Limite bajo para el display con led apagada
+	LDI		LIMIT_DISPH, 0x0F	//Limite alto para el display con led apagada
 	RJMP	MAIN
 
 // NON-Interrupt subroutines
@@ -147,9 +157,9 @@ PCINT1_ISR:
 
 //Incrementar el contador
 increment:
-	INC		COUNT_DISP
-	CPI		COUNT_DISP, 0x10
+	CP		COUNT_DISP, LIMIT_DISPH
 	BREQ	OVF
+	INC		COUNT_DISP
 	ADIW	Z,	1			//Incrementar el puntero en 1
 	LPM		DISPLAY,	Z		//Cargar los datos de la dirrección del puntero
 	RET
@@ -158,7 +168,7 @@ OVF:
 	LDI		ZH, HIGH(TABLA<<1)  //Carga la parte alta de la dirección de tabla en el registro ZH
 	LDI		ZL, LOW(TABLA<<1)	//Carga la parte baja de la dirección de la tabla en el registro ZL
 	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
-	LDI		COUNT_DISP,	0x00
+	MOV		COUNT_DISP,	LIMIT_DISPL
 	RET
 
 UNF:
@@ -167,13 +177,13 @@ UNF:
 	ADIW	Z,	15
 	LPM		DISPLAY, Z			    //Carga en R16 el valor de la tabla en ela dirreción Z
 	OUT		PORTD, DISPLAY		   //Muestra en el puerto D el valor leido de la tabla
-	LDI		COUNT_DISP,	0x0F
+	MOV		COUNT_DISP,	LIMIT_DISPH
 	RET
 
 
 //Decrementar el contador
 decrement:
-	CPI		COUNT_DISP, 0x00
+	CP		COUNT_DISP, LIMIT_DISPL
 	BREQ	UNF
 	DEC		COUNT_DISP
 	SBIW	Z,	1			//Incrementar el puntero en 1
